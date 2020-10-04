@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-const int &foo(const int &a)
+int &&foo(int &&a)
 {
-	return a;
+	return move(a);
 }
 
 int main()
