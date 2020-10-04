@@ -8,6 +8,6 @@ int &&foo(int &&a)
 
 int main()
 {
-	cout << foo(5) << endl;
+	cout << foo(5) << "change" << endl;
 	return 0;
 }
