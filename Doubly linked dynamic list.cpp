@@ -10,7 +10,7 @@ template <typename T = int>
 class List
 {
 private:
-	//List item
+	//List node
 	struct Node
 	{
 		T data;
@@ -141,7 +141,7 @@ List<T>::List(List &&other) noexcept : List() //variable init
 {
 	for (auto iter(other.head); iter != nullptr; iter = iter->next)
 	{
-		push_back(move(iter->data)); //converting to lvalue
+		push_back(move(iter->data)); //converting to r-value
 	}
 }
 
@@ -207,7 +207,7 @@ void List<T>::insert(const T &val, const uint64_t &index)
 		}
 	}
 
-	//create new item
+	//create new node
 	Node *newNode(new Node);
 
 	//item init
@@ -242,7 +242,7 @@ void List<T>::insert(T &&val, const uint64_t &index)
 		}
 	}
 
-	//create new item
+	//create new node
 	Node *newNode(new Node);
 
 	//item init
