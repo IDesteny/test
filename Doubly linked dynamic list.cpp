@@ -1,5 +1,5 @@
 /*
- * Громов Илья Сергеевич 20ВП1
+ * <ФИО> 20ВП1
 */
 
 #include <iostream>
@@ -123,11 +123,11 @@ public:
 
 
 template <class T>
-__fastcall List<T>::List() noexcept : head(nullptr), tail(nullptr) {}
+List<T>::List() noexcept : head(nullptr), tail(nullptr) {}
 
 
 template <class T>
-__fastcall List<T>::List(const List &other) noexcept : List() //variable init
+List<T>::List(const List &other) noexcept : List() //variable init
 {
 	for (auto iter(other.head); iter != nullptr; iter = iter->next)
 	{
@@ -137,7 +137,7 @@ __fastcall List<T>::List(const List &other) noexcept : List() //variable init
 
 
 template <class T>
-__fastcall List<T>::List(List &&other) noexcept : List() //variable init
+List<T>::List(List &&other) noexcept : List() //variable init
 {
 	for (auto iter(other.head); iter != nullptr; iter = iter->next)
 	{
@@ -157,7 +157,7 @@ List<T>::~List() noexcept
 
 
 template <class T>
-void __fastcall List<T>::push_back(const T &val)
+void List<T>::push_back(const T &val)
 {
 	//create new item
 	Node *newNode(new Node);
@@ -175,7 +175,7 @@ void __fastcall List<T>::push_back(const T &val)
 
 
 template <class T>
-void __fastcall List<T>::push_back(T &&val)
+void List<T>::push_back(T &&val)
 {
 	//create new item
 	Node *newNode(new Node);
@@ -193,7 +193,7 @@ void __fastcall List<T>::push_back(T &&val)
 
 
 template <class T>
-void __fastcall List<T>::insert(const T &val, const uint64_t &index)
+void List<T>::insert(const T &val, const uint64_t &index)
 {
 	//getting an item by number "index"
 	auto iter(head);
@@ -228,7 +228,7 @@ void __fastcall List<T>::insert(const T &val, const uint64_t &index)
 
 
 template <class T>
-void __fastcall List<T>::insert(T &&val, const uint64_t &index)
+void List<T>::insert(T &&val, const uint64_t &index)
 {
 	//getting an item by number "index"
 	auto iter(head);
@@ -283,7 +283,7 @@ void List<T>::pop_back()
 
 
 template <class T>
-void __fastcall List<T>::output(const bool reverse) const
+void List<T>::output(const bool reverse) const
 {
 	for (auto iter(reverse ? tail : head); iter; iter = reverse ? iter->prev : iter->next)
 	{
