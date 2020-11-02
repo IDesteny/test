@@ -27,7 +27,7 @@ public:
 	///<summary>
 	///	Delegating constructor initializing variables
 	///</summary>
-	inline explicit __fastcall List() noexcept;
+	inline explicit List() noexcept;
 
 
 	///<summary>
@@ -37,7 +37,7 @@ public:
 	///<list name = "other">
 	///	Copy List
 	///</list>
-	inline explicit __fastcall List(const List &other) noexcept;
+	inline explicit List(const List &other) noexcept;
 
 
 	///<summary>
@@ -47,7 +47,7 @@ public:
 	///<list name = "other">
 	///	Move List
 	///</list>
-	inline explicit __fastcall List(List &&other) noexcept;
+	inline explicit List(List &&other) noexcept;
 
 
 	///<summary>
@@ -198,7 +198,7 @@ void List<T>::insert(const T &val, const uint64_t &index)
 	//getting an item by number "index"
 	auto iter(head);
 
-	for (uint64_t i {}; i < index; ++i, iter = iter->next)
+	for (register uint64_t i {}; i < index; ++i, iter = iter->next)
 	{
 		if (iter == nullptr)
 		{
@@ -233,7 +233,7 @@ void List<T>::insert(T &&val, const uint64_t &index)
 	//getting an item by number "index"
 	auto iter(head);
 
-	for (uint64_t i {}; i < index; ++i, iter = iter->next)
+	for (register uint64_t i {}; i < index; ++i, iter = iter->next)
 	{
 		if (iter == nullptr)
 		{
