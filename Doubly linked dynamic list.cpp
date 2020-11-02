@@ -200,7 +200,7 @@ void List<T>::insert(const T &val, const uint64_t &index)
 
 	for (register uint64_t i {}; i < index; ++i, iter = iter->next)
 	{
-		if (iter == nullptr)
+		if (!iter)
 		{
 			cout << "!Error: Overstepping the list!" << endl;
 			return;
@@ -235,7 +235,7 @@ void List<T>::insert(T &&val, const uint64_t &index)
 
 	for (register uint64_t i {}; i < index; ++i, iter = iter->next)
 	{
-		if (iter == nullptr)
+		if (!iter)
 		{
 			cout << "!Error: Overstepping the list!" << endl;
 			return;
