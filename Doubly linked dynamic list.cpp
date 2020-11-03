@@ -1,5 +1,5 @@
 /*
- * <тхн> 20бо1
+ * <Name> 20VP1
 */
 
 #include <iostream>
