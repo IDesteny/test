@@ -129,7 +129,7 @@ List<T>::List() noexcept : head(nullptr), tail(nullptr) {}
 template <class T>
 List<T>::List(const List &other) noexcept : List() //variable init
 {
-	for (auto iter(other.head); iter != nullptr; iter = iter->next)
+	for (register Node *iter(other.head); iter != nullptr; iter = iter->next)
 	{
 		push_back(iter->data);
 	}
@@ -139,7 +139,7 @@ List<T>::List(const List &other) noexcept : List() //variable init
 template <class T>
 List<T>::List(List &&other) noexcept : List() //variable init
 {
-	for (auto iter(other.head); iter != nullptr; iter = iter->next)
+	for (register Node *iter(other.head); iter != nullptr; iter = iter->next)
 	{
 		push_back(move(iter->data)); //converting to r-value
 	}
@@ -157,10 +157,10 @@ List<T>::~List() noexcept
 
 
 template <class T>
-void List<T>::push_back(const T &val)
+void List<T>::push_back(register const T &val)
 {
 	//create new item
-	Node *newNode(new Node);
+	register Node *newNode(new Node);
 
 	//init item
 	newNode->data = val;
@@ -175,10 +175,10 @@ void List<T>::push_back(const T &val)
 
 
 template <class T>
-void List<T>::push_back(T &&val)
+void List<T>::push_back(register T &&val)
 {
 	//create new item
-	Node *newNode(new Node);
+	register Node *newNode(new Node);
 
 	//init item
 	newNode->data = move(val);
@@ -193,12 +193,12 @@ void List<T>::push_back(T &&val)
 
 
 template <class T>
-void List<T>::insert(const T &val, const uint64_t &index)
+void List<T>::insert(register const T &val, register const uint64_t &index)
 {
 	//getting an item by number "index"
-	auto iter(head);
+	register Node *iter(head);
 
-	for (register uint64_t i {}; i < index; ++i, iter = iter->next)
+	for (register uint64_t i(0); i < index; ++i, iter = iter->next)
 	{
 		if (!iter)
 		{
@@ -208,7 +208,7 @@ void List<T>::insert(const T &val, const uint64_t &index)
 	}
 
 	//create new node
-	Node *newNode(new Node);
+	register Node *newNode(new Node);
 
 	//item init
 	newNode->data = val;
@@ -228,12 +228,12 @@ void List<T>::insert(const T &val, const uint64_t &index)
 
 
 template <class T>
-void List<T>::insert(T &&val, const uint64_t &index)
+void List<T>::insert(register T &&val, register const uint64_t &index)
 {
 	//getting an item by number "index"
-	auto iter(head);
+	register Node *iter(head);
 
-	for (register uint64_t i {}; i < index; ++i, iter = iter->next)
+	for (register uint64_t i(0); i < index; ++i, iter = iter->next)
 	{
 		if (!iter)
 		{
@@ -243,7 +243,7 @@ void List<T>::insert(T &&val, const uint64_t &index)
 	}
 
 	//create new node
-	Node *newNode(new Node);
+	register Node *newNode(new Node);
 
 	//item init
 	newNode->data = move(val);
@@ -268,24 +268,18 @@ void List<T>::pop_back()
 	//checking if the list is empty
 	if (!tail) return;
 
-	if (head == tail)
-	{
-		delete tail;
-		tail = head = nullptr;
-	} else
-	{
-		tail = tail->prev;
+	tail = head == tail ? tail : tail->prev;
+	delete (head == tail ? tail : tail->next);
 
-		delete tail->next;
-		tail->next = nullptr;
-	}
+	if (head == tail) tail = head = nullptr;
+	else tail->next = nullptr;
 }
 
 
 template <class T>
-void List<T>::output(const bool reverse) const
+void List<T>::output(register const bool reverse) const
 {
-	for (auto iter(reverse ? tail : head); iter; iter = reverse ? iter->prev : iter->next)
+	for (register Node *iter(reverse ? tail : head); iter; iter = reverse ? iter->prev : iter->next)
 	{
 		cout << iter->data << endl;
 	}
