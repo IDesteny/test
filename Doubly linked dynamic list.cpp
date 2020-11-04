@@ -159,8 +159,8 @@ void List<T>::push_back(register const T &val)
 
 	//set points
 	if (tail) tail->next = newNode;
-	if (!head) head	 = newNode;
-	tail				 = newNode;
+	if (!head) head	     = newNode;
+	tail                 = newNode;
 }
 
 
@@ -172,8 +172,8 @@ void List<T>::push_back(register T &&val)
 
 	//set points
 	if (tail) tail->next = newNode;
-	if (!head) head	 = newNode;
-	tail				 = newNode;
+	if (!head) head      = newNode;
+	tail                 = newNode;
 }
 
 
@@ -199,9 +199,9 @@ void List<T>::insert(register const T &val, register const uint64_t &index)
 	if (iter)
 	{
 		if (iter->next) iter->next->prev = newNode;
-		iter->next				   = newNode;
+		iter->next                       = newNode;
 	}
-	if (!head)	   head = newNode;
+	if (!head)        head = newNode;
 	if (iter == tail) tail = newNode;
 }
 
@@ -229,9 +229,9 @@ void List<T>::insert(register T &&val, register const uint64_t &index)
 	if (iter)
 	{
 		if (iter->next) iter->next->prev = newNode;
-		iter->next				   = newNode;
+		iter->next                       = newNode;
 	}
-	if (!head)	   head = newNode;
+	if (!head)        head = newNode;
 	if (iter == tail) tail = newNode;
 }
 
@@ -246,7 +246,7 @@ void List<T>::pop_back()
 	delete (head == tail ? tail : tail->next);
 
 	if (head == tail) tail = head = nullptr;
-	else			   tail->next  = nullptr;
+	else tail->next               = nullptr;
 }
 
 
