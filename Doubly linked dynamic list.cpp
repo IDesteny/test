@@ -19,15 +19,17 @@ private:
 		Node *prev; //Pointer to previous item
 	};
 
-	Node *head; //Pointer to the beginning of the list
-	Node *tail; //Pointer to the end of the list
+	 Node *head = nullptr; //Pointer to the beginning of the list
+	 Node *tail = nullptr; //Pointer to the end of the list
+
+	 Node *newNode = nullptr; //New list node
 
 public:
 
 	///<summary>
 	///	Delegating constructor initializing variables
 	///</summary>
-	inline explicit List() noexcept;
+	inline explicit List() noexcept {};
 
 
 	///<summary>
@@ -123,13 +125,9 @@ public:
 
 
 template <class T>
-List<T>::List() noexcept : head(nullptr), tail(nullptr) {}
-
-
-template <class T>
-List<T>::List(const List &other) noexcept : List() //variable init
+List<T>::List(const List &other) noexcept
 {
-	for (register Node *iter(other.head); iter != nullptr; iter = iter->next)
+	for (register Node *iter(other.head); iter; iter = iter->next)
 	{
 		push_back(iter->data);
 	}
@@ -137,11 +135,11 @@ List<T>::List(const List &other) noexcept : List() //variable init
 
 
 template <class T>
-List<T>::List(List &&other) noexcept : List() //variable init
+List<T>::List(List &&other) noexcept
 {
-	for (register Node *iter(other.head); iter != nullptr; iter = iter->next)
+	for (register Node *iter(other.head); iter; iter = iter->next)
 	{
-		push_back(move(iter->data)); //converting to r-value
+		push_back(move(iter->data));
 	}
 }
 
@@ -149,10 +147,7 @@ List<T>::List(List &&other) noexcept : List() //variable init
 template <class T>
 List<T>::~List() noexcept
 {
-	while (head)
-	{
-		pop_back();
-	}
+	while (head) pop_back();
 }
 
 
@@ -160,17 +155,12 @@ template <class T>
 void List<T>::push_back(register const T &val)
 {
 	//create new item
-	register Node *newNode(new Node);
-
-	//init item
-	newNode->data = val;
-	newNode->next = nullptr;
-	newNode->prev = tail;
+	newNode = new Node { val, nullptr, tail };
 
 	//set points
 	if (tail) tail->next = newNode;
-	if (!head) head = newNode;
-	tail = newNode;
+	if (!head) head	 = newNode;
+	tail				 = newNode;
 }
 
 
@@ -178,17 +168,12 @@ template <class T>
 void List<T>::push_back(register T &&val)
 {
 	//create new item
-	register Node *newNode(new Node);
-
-	//init item
-	newNode->data = move(val);
-	newNode->next = nullptr;
-	newNode->prev = tail;
+	newNode = new Node { move(val), nullptr, tail };
 
 	//set points
 	if (tail) tail->next = newNode;
-	if (!head) head = newNode;
-	tail = newNode;
+	if (!head) head	 = newNode;
+	tail				 = newNode;
 }
 
 
@@ -208,21 +193,15 @@ void List<T>::insert(register const T &val, register const uint64_t &index)
 	}
 
 	//create new node
-	register Node *newNode(new Node);
-
-	//item init
-	newNode->data = val;
-	newNode->next = iter ? iter->next : nullptr;
-	newNode->prev = iter;
+	newNode = new Node { val, iter ? iter->next : nullptr, iter };
 
 	//set points
 	if (iter)
 	{
 		if (iter->next) iter->next->prev = newNode;
-
-		iter->next = newNode;
+		iter->next				   = newNode;
 	}
-	if (!head) head = newNode;
+	if (!head)	   head = newNode;
 	if (iter == tail) tail = newNode;
 }
 
@@ -241,23 +220,18 @@ void List<T>::insert(register T &&val, register const uint64_t &index)
 			return;
 		}
 	}
+	
 
 	//create new node
-	register Node *newNode(new Node);
-
-	//item init
-	newNode->data = move(val);
-	newNode->next = iter ? iter->next : nullptr;
-	newNode->prev = iter;
+	newNode = new Node { move(val), iter ? iter->next : nullptr, iter };
 
 	//set points
 	if (iter)
 	{
 		if (iter->next) iter->next->prev = newNode;
-
-		iter->next = newNode;
+		iter->next				   = newNode;
 	}
-	if (!head) head = newNode;
+	if (!head)	   head = newNode;
 	if (iter == tail) tail = newNode;
 }
 
@@ -268,11 +242,11 @@ void List<T>::pop_back()
 	//checking if the list is empty
 	if (!tail) return;
 
-	tail = head == tail ? tail : tail->prev;
+	tail  = head == tail ? tail : tail->prev;
 	delete (head == tail ? tail : tail->next);
 
 	if (head == tail) tail = head = nullptr;
-	else tail->next = nullptr;
+	else			   tail->next  = nullptr;
 }
 
 
